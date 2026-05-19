@@ -30,14 +30,14 @@ Step 7: Save and run the application.
 ```
 /*
 Program to print the text create your own content providers to get contacts details.
-Developed by: Sri Yaline R
-Registeration Number : 212224040325
+Developed by: NANDHITHA S
+Registeration Number : 212224220069
 */
 ```
 MainActivity.java
 
 ```
-package com.example.myapplication;
+package com.example.contentprovider1;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -52,9 +52,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -66,6 +70,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
         textView = findViewById(R.id.textView);
         textView.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getPhoneContacts();
@@ -115,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                textView.setText("No contacts found with phone numbers.");
+                textView.setText(R.string.no_contacts);
                 Log.e("CONTACT_PROVIDER_DEMO", "No contacts found or cursor is null");
             }
         }
@@ -165,9 +174,9 @@ activity_main.xml
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-```
 
-AndroidManifest.xml
+```
+android_manifest.xml
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -183,7 +192,7 @@ AndroidManifest.xml
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.Contentprovider1">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -200,9 +209,9 @@ AndroidManifest.xml
 ```
 ## OUTPUT
 
-<img width="1920" height="1200" alt="Screenshot 2026-05-16 115948" src="https://github.com/user-attachments/assets/4cfd853f-b7f9-4829-9f01-7f194c749375" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/6293df6b-4efe-43bf-99c7-27dfcd227ed2" />
 
-<img width="1920" height="1200" alt="Screenshot 2026-05-16 115957" src="https://github.com/user-attachments/assets/75e65b2d-37e5-45ac-859e-f43c66db092d" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/d918a4c8-93ff-45cc-b9e3-34f6a68c3aad" />
 
 
 ## RESULT
